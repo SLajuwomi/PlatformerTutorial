@@ -13,13 +13,16 @@ import javax.swing.JPanel;
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 
+import static utils.Constants.PlayerConstants.*;
+
 public class GamePanel extends JPanel {
 
 	private MouseInputs mouseInputs;
 	private float xDelta = 100, yDelta = 100;
-	private BufferedImage img, subImg;
+	private BufferedImage img;
 	private BufferedImage[][] animations;
 	private int animationTick, animationIndex, animationSpeed = 15;
+	private int playerAction = IDLE;
 
 	public GamePanel() {
 
@@ -91,7 +94,7 @@ public class GamePanel extends JPanel {
 		if (animationTick >= animationSpeed) {
 			animationTick = 0;
 			animationIndex++;
-			if (animationIndex >= 6) {
+			if (animationIndex >= getSpriteAmount(playerAction)) {
 				animationIndex = 0;
 			}
 		}
@@ -102,7 +105,7 @@ public class GamePanel extends JPanel {
 
 		updateAnimationTick();
 
-		g.drawImage(animations[1][animationIndex], (int) xDelta, (int) yDelta, 128, 80, null);
+		g.drawImage(animations[playerAction][animationIndex], (int) xDelta, (int) yDelta, 256, 160, null);
 
 	}
 
